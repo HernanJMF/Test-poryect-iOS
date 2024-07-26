@@ -1,0 +1,8 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "Agrobot",
+	"webDir": "www",
+	"server": {
+		"androidScheme": "https"
+	}
+}
