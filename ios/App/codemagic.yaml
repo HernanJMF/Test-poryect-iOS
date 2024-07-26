@@ -1,0 +1,18 @@
+workflows:
+  ios-workflow:
+    name: Build iOS app
+    max_build_duration: 60
+    environment:
+      xcode: latest
+    scripts:
+      - name: Install dependencies
+        script: |
+          cd ios/App
+          pod install
+      - name: Build iOS
+        script: |
+          xcodebuild -workspace App.xcworkspace -scheme App -configuration Release clean archive -archivePath $CM_BUILD_DIR/ios.xcarchive
+          xcodebuild -exportArchive -archivePath $CM_BUILD_DIR/ios.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath $CM_BUILD_DIR
+    artifacts:
+      - $CM_BUILD_DIR/*.ipa
+
