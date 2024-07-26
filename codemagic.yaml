@@ -3,14 +3,15 @@ workflows:
     name: Build iOS app
     max_build_duration: 60
     environment:
-      flutter: stable
       xcode: latest
     scripts:
       - name: Install dependencies
         script: |
-          flutter pub get
+          brew install cocoapods
+          pod install
       - name: Build iOS
         script: |
-          flutter build ios --release
+          xcodebuild -workspace <nombre_del_workspace>.xcworkspace -scheme <nombre_del_esquema> -configuration Release clean archive -archivePath $CM_BUILD_DIR/ios.xcarchive
+          xcodebuild -exportArchive -archivePath $CM_BUILD_DIR/ios.xcarchive -exportOptionsPlist <ruta_a_ExportOptions.plist> -exportPath $CM_BUILD_DIR
     artifacts:
-      - build/ios/ipa/*.ipa
+      - $CM_BUILD_DIR/*.ipa
