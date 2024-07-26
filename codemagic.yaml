@@ -11,7 +11,7 @@ workflows:
           pod install
       - name: Build iOS
         script: |
-          xcodebuild -workspace <nombre_del_workspace>.xcworkspace -scheme <nombre_del_esquema> -configuration Release clean archive -archivePath $CM_BUILD_DIR/ios.xcarchive
-          xcodebuild -exportArchive -archivePath $CM_BUILD_DIR/ios.xcarchive -exportOptionsPlist <ruta_a_ExportOptions.plist> -exportPath $CM_BUILD_DIR
+          xcodebuild -workspace agrobot.xcworkspace -scheme agrobot -configuration Release clean archive -archivePath $CM_BUILD_DIR/ios.xcarchive
+          xcodebuild -exportArchive -archivePath $CM_BUILD_DIR/ios.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath $CM_BUILD_DIR
     artifacts:
       - $CM_BUILD_DIR/*.ipa
