@@ -1,0 +1,79 @@
+<div class="options-content">
+  <!------------LOGO SECTION START------------>
+  <div *ngIf="innerWidth < 768">
+    <div class="d-flex justify-content-center align-items-center">
+      <img [src]="'../../../../../assets/images/agroseguro-agrobot.png'"
+           width="300px" class="img-fluid" alt="">
+    </div>
+    <div class="d-flex justify-content-center">
+      <span class="powered">powered by NEWTOMS AI</span>
+    </div>
+  </div>
+  <!------------LOGO SECTION END------------>
+
+  <!------------FORM SECTION START------------>
+  <form [formGroup]="formGroup">
+    <div *ngIf="innerWidth >= 768" class="mb-5">
+      <div class="d-flex justify-content-center align-items-center">
+        <img [src]="'../../../../../assets/images/agroseguro-agrobot.png'"
+             width="300px" class="img-fluid" alt="">
+      </div>
+      <div class="d-flex justify-content-center">
+        <span class="powered">powered by NEWTOMS AI</span>
+      </div>
+    </div>
+      <div class="document-form">
+        <div>
+          <label>{{this.formGroup.controls['language'].value.value == 'english' ? 'Select a topic' : 'Seleccione un tema'}}</label>
+          <p-dropdown formControlName="topic"
+                      [options]="topicList"
+                      optionLabel="topic_name"
+                      appendTo="body"
+                      [emptyMessage]="this.formGroup.controls['language'].value.value == 'english' ? 'The topics have not loaded' : 'Los temas no han cargado'"
+                      [placeholder]="this.formGroup.controls['language'].value.value == 'english' ? 'Select a topic' : 'Seleccione un tema'"
+                      [emptyFilterMessage]="this.formGroup.controls['language'].value.value == 'english' ? 'No records' : 'No hay registros'"
+                      (onChange)="changeTopic()"
+                      (onClear)="clearTopic()">
+          </p-dropdown>
+        </div>
+        <div class="d-flex justify-content-start">
+            <span *ngIf="formGroup.controls['topic'].touched && formGroup.controls['topic'].errors?.['required']" class="p-error">
+              {{this.formGroup.controls['language'].value.value == 'english' ? 'Select a topic' : 'Seleccione un tema'}}
+            </span>
+        </div>
+      </div>
+      <div class="document-form">
+        <div>
+          <label>{{this.formGroup.controls['language'].value.value == 'english' ? 'Select a language' : 'Seleccione un idioma'}}</label>
+          <p-dropdown formControlName="language"
+                      [options]="languageList"
+                      optionLabel="name"
+                      appendTo="body"
+                      [placeholder]=""
+                      [emptyFilterMessage]="this.formGroup.controls['language'].value.value == 'english' ? 'No records' : 'No hay registros'"
+                      (onChange)="changeLanguage($event.value.value)"
+                      >
+          </p-dropdown>
+        </div>
+        <div class="d-flex justify-content-start">
+            <span *ngIf="formGroup.controls['language'].touched && formGroup.controls['language'].errors?.['required']" class="p-error">
+              {{this.formGroup.controls['language'].value.value == 'english' ? 'Select a language' : 'Seleccione un idioma'}}
+            </span>
+        </div>
+      </div>
+  </form>
+  <!------------FORM SECTION END------------>
+
+  <!------------BUTTON SECTION START------------>
+  <div class="d-flex justify-content-center w-100 title"
+       *ngIf="innerWidth < 768">
+    <button type="button"
+            class="p-button-text"
+            pButton
+            [label]="this.formGroup.controls['language'].value.value == 'english' ? 'Talk with Agrobot' : 'Hablar con Agrobot'"
+            [disabled]="!isValid"
+            (click)="isValid ? submitConfig() : ''">
+    </button>
+  </div>
+  <!------------BUTTON END START------------>
+</div>

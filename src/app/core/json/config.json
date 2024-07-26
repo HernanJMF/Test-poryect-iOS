@@ -1,0 +1,8 @@
+{
+    "endpoints": {
+        "login": "/login",
+        "refresh_token": "/refresh-token",
+        "get_document_list": "/chat2dox-documents",
+        "get_document": "/chats"
+    }
+}
