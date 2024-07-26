@@ -1,28 +1,16 @@
 workflows:
   ios-workflow:
-    name: iOS Workflow
+    name: Build iOS app
     max_build_duration: 60
     environment:
-      vars:
-        APP_STORE_CONNECT_PRIVATE_KEY: Encrypted(...)
-        APP_STORE_CONNECT_KEY_IDENTIFIER: Encrypted(...)
-        APP_STORE_CONNECT_ISSUER_ID: Encrypted(...)
-    triggering:
-      events:
-        - push
+      flutter: stable
+      xcode: latest
     scripts:
-      - name: Set up keychain
-        script: |
-          mkdir -p ~/Library/Keychains
-          security create-keychain -p "" build.keychain
-          security default-keychain -s build.keychain
-          security unlock-keychain -p "" build.keychain
-          security set-keychain-settings -t 3600 -u build.keychain
       - name: Install dependencies
         script: |
-          brew install cocoapods
-          pod install
-      - name: Build IPA
+          flutter pub get
+      - name: Build iOS
         script: |
-          xcodebuild -workspace ios/Runner.xcworkspace -scheme Runner -configuration Release -archivePath $HOME/build/Runner.xcarchive archive
-          xcodebuild -exportArchive -archivePath $HOME/build/Runner.xcarchive -exportPath $HOME/build/Runner -exportOptionsPlist ios/Runner/ExportOptions.plist
+          flutter build ios --release
+    artifacts:
+      - build/ios/ipa/*.ipa
