@@ -32,13 +32,16 @@ workflows:
           </dict>
           </plist>
           EOF
-      - name: Copy configuration files
-        script: |
-          cp ios/App/App/config.xml ios/App/App/capacitor.config.json ios/App/App/public/* $CM_BUILD_DIR
-      - name: Build iOS
-        script: |
-          cd ios/App
-          xcodebuild -workspace App.xcworkspace -scheme App -configuration Release clean archive -archivePath $CM_BUILD_DIR/ios.xcarchive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
-          xcodebuild -exportArchive -archivePath $CM_BUILD_DIR/ios.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath $CM_BUILD_DIR CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+       - name: Copy configuration files
+    script: |
+      cp ios/App/App/config.xml $CM_BUILD_DIR/config.xml
+      cp ios/App/App/capacitor.config.json $CM_BUILD_DIR/capacitor.config.json
+      cp -r ios/App/App/public/* $CM_BUILD_DIR/public/
+
+    - name: Build iOS
+      script: |
+        cd ios/App
+        xcodebuild -workspace App.xcworkspace -scheme App -configuration Release clean archive -archivePath $CM_BUILD_DIR/ios.xcarchive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+        xcodebuild -exportArchive -archivePath $CM_BUILD_DIR/ios.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath $CM_BUILD_DIR CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
     artifacts:
       - $CM_BUILD_DIR/*.ipa
