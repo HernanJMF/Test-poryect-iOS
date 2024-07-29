@@ -21,6 +21,11 @@ workflows:
           pod cache clean --all
           pod install --repo-update
 
+      - name: List files in node_modules/@capacitor/ios/scripts
+        script: |
+          cd ios/App
+          ls -R node_modules/@capacitor/ios/scripts
+
       - name: List files in node_modules
         script: |
           cd ios/App
