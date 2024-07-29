@@ -1,7 +1,7 @@
 platform :ios, '13.0'
 use_frameworks!
 
-require_relative '../../node_modules/@capacitor/ios/scripts/pods_helpers'
+require_relative '../node_modules/@capacitor/ios/scripts/pods_helpers'
 
 # workaround to avoid Xcode caching of Pods that requires
 # Product -> Clean Build Folder after new Cordova plugins installed
