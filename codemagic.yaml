@@ -8,39 +8,23 @@ workflows:
       - name: Install Node.js dependencies
         script: |
           npm install
+      - name: Verify Capacitor Installation
+        script: |
+          cd ios/App
+          ls -R ../node_modules/@capacitor/ios/scripts
+      - name: Verify CocoaPods version
+        script: |
+          pod --version
       - name: Clean CocoaPods
         script: |
           cd ios/App
           pod deintegrate
           pod cache clean --all
-      - name: List files in node_modules/@capacitor/ios/scripts
-        script: |
-          cd ios/App
-          ls -R node_modules/@capacitor/ios/scripts
-
-      - name: List files in node_modules
-        script: |
-          cd ios/App
-          ls -R node_modules/@capacitor/ios/scripts
-
-      - name: Verify CocoaPods version
-        script: |
-          pod --version
-
-      - name: List files in node_modules
-        script: |
-          cd ios/App
-          ls -R node_modules/@capacitor/ios/scripts
-
       - name: Update CocoaPods
         script: |
           gem install cocoapods
           cd ios/App
-          pod deintegrate
-          pod cache clean --all
           pod install --repo-update
-
-
       - name: Build iOS
         script: |
           cd ios/App
