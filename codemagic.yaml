@@ -34,9 +34,7 @@ workflows:
           EOF
       - name: Copy configuration files
         script: |
-          cp -R path/to/your/config.xml ios/App/
-          cp -R path/to/your/capacitor.config.json ios/App/
-          mkdir -p ios/App/public && cp -R path/to/your/public/* ios/App/public/
+          cp ios/App/App/config.xml ios/App/App/capacitor.config.json ios/App/App/public/* $CM_BUILD_DIR
       - name: Build iOS
         script: |
           cd ios/App
