@@ -10,12 +10,32 @@ workflows:
           rm -rf node_modules
           rm package-lock.json
           npm install
+      - name: Add Development Team
+        script: |
+          cd ios/App
+          sed -i '' 's/DEVELOPMENT_TEAM = "";/DEVELOPMENT_TEAM = YOUR_TEAM_ID;/' App.xcodeproj/project.pbxproj
       - name: List files in node_modules/@capacitor/ios/scripts
         script: |
           ls -R node_modules/@capacitor/ios/scripts
       - name: Verify CocoaPods version
         script: |
           pod --version
+      - name: Create ExportOptions.plist
+        script: |
+          cat <<EOF > ios/App/ExportOptions.plist
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+              <key>method</key>
+              <string>app-store</string>
+              <key>teamID</key>
+              <string>newtoms</string>
+              <key>signingStyle</key>
+              <string>manual</string>
+          </dict>
+          </plist>
+          EOF
       - name: Build iOS
         script: |
           cd ios/App
