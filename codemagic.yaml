@@ -8,11 +8,12 @@ workflows:
       - name: Install Node.js dependencies
         script: |
           npm install
-      - name: List files in node_modules
+          ls -R node_modules
+      - name: List files in ios/App
         script: |
           cd ios/App
-          ls -R ../node_modules
-      - name: List files in node_modules/@capacitor
+          ls -R
+      - name: Verify Capacitor Installation
         script: |
           cd ios/App
           ls -R ../node_modules/@capacitor
@@ -29,10 +30,6 @@ workflows:
           gem install cocoapods
           cd ios/App
           pod install --repo-update
-      - name: List files in ios/App
-        script: |
-          cd ios/App
-          ls -R
       - name: Build iOS
         script: |
           cd ios/App
