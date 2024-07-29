@@ -10,10 +10,6 @@ workflows:
           rm -rf node_modules
           rm package-lock.json
           npm install
-      - name: Add Development Team
-        script: |
-          cd ios/App
-          sed -i '' 's/DEVELOPMENT_TEAM = "";/DEVELOPMENT_TEAM = YOUR_TEAM_ID;/' App.xcodeproj/project.pbxproj
       - name: List files in node_modules/@capacitor/ios/scripts
         script: |
           ls -R node_modules/@capacitor/ios/scripts
@@ -28,18 +24,18 @@ workflows:
           <plist version="1.0">
           <dict>
               <key>method</key>
-              <string>app-store</string>
-              <key>teamID</key>
-              <string>newtoms</string>
+              <string>development</string>
               <key>signingStyle</key>
-              <string>manual</string>
+              <string>automatic</string>
+              <key>teamID</key>
+              <string></string>
           </dict>
           </plist>
           EOF
       - name: Build iOS
         script: |
           cd ios/App
-          xcodebuild -workspace App.xcworkspace -scheme App -configuration Release clean archive -archivePath $CM_BUILD_DIR/ios.xcarchive
-          xcodebuild -exportArchive -archivePath $CM_BUILD_DIR/ios.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath $CM_BUILD_DIR
+          xcodebuild -workspace App.xcworkspace -scheme App -configuration Release clean archive -archivePath $CM_BUILD_DIR/ios.xcarchive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+          xcodebuild -exportArchive -archivePath $CM_BUILD_DIR/ios.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath $CM_BUILD_DIR CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
     artifacts:
       - $CM_BUILD_DIR/*.ipa
