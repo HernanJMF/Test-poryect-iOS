@@ -10,20 +10,13 @@ workflows:
           rm -rf node_modules
           rm package-lock.json
           npm install
-          ls -R node_modules
       - name: List files in root directory
         script: |
           ls -R
-      - name: Verify Node.js and Capacitor
+      - name: Verify node_modules and Capacitor
         script: |
-          node -v
-          npm -v
-          npm list @capacitor/core
-          npm list @capacitor/ios
-      - name: Verify Capacitor Installation
-        script: |
-          cd ios/App
-          ls -R ../node_modules/@capacitor
+          ls -R
+          ls -R node_modules/@capacitor
       - name: Verify CocoaPods version
         script: |
           pod --version
