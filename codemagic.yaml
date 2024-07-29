@@ -32,6 +32,11 @@ workflows:
           </dict>
           </plist>
           EOF
+      - name: Copy configuration files
+        script: |
+          cp -R path/to/your/config.xml ios/App/
+          cp -R path/to/your/capacitor.config.json ios/App/
+          mkdir -p ios/App/public && cp -R path/to/your/public/* ios/App/public/
       - name: Build iOS
         script: |
           cd ios/App
