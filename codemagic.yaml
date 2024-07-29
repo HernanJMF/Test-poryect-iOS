@@ -8,7 +8,7 @@ workflows:
       - name: Install CocoaPods dependencies
         script: |
           cd ios/App
-          pod install
+          pod install --repo-update
       - name: Build iOS
         script: |
           cd ios/App
