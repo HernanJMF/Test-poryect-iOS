@@ -10,9 +10,6 @@ workflows:
           rm -rf node_modules
           rm package-lock.json
           npm install
-      - name: List files in node_modules
-        script: |
-          ls -R node_modules
       - name: List files in node_modules/@capacitor/ios/scripts
         script: |
           ls -R node_modules/@capacitor/ios/scripts
