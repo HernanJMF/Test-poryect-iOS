@@ -13,10 +13,28 @@ workflows:
           cd ios/App
           pod deintegrate
           pod cache clean --all
-      - name: Install CocoaPods dependencies
+      - name: Update CocoaPods
+        script: |
+          gem install cocoapods
+          cd ios/App
+          pod deintegrate
+          pod cache clean --all
+          pod install --repo-update
+
+      - name: List files in node_modules
         script: |
           cd ios/App
-          pod install --repo-update
+          ls -R node_modules/@capacitor/ios/scripts
+
+      - name: Verify CocoaPods version
+        script: |
+          pod --version
+
+      - name: List files in node_modules
+        script: |
+          cd ios/App
+          ls -R node_modules/@capacitor/ios/scripts
+
       - name: Build iOS
         script: |
           cd ios/App
