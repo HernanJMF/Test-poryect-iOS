@@ -7,6 +7,8 @@ workflows:
     scripts:
       - name: Install Node.js dependencies
         script: |
+          rm -rf node_modules
+          rm package-lock.json
           npm install
           ls -R node_modules
       - name: List files in ios/App
