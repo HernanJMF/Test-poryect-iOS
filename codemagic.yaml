@@ -16,16 +16,6 @@ workflows:
       - name: Verify CocoaPods version
         script: |
           pod --version
-      - name: Clean CocoaPods
-        script: |
-          cd ios/App
-          pod deintegrate
-          pod cache clean --all
-      - name: Update CocoaPods
-        script: |
-          gem install cocoapods
-          cd ios/App
-          pod install --repo-update
       - name: Build iOS
         script: |
           cd ios/App
