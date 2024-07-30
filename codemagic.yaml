@@ -16,6 +16,10 @@ workflows:
       - name: Verify CocoaPods version
         script: |
           pod --version
+      - name: Update CocoaPods
+        script: |
+          sudo gem install cocoapods
+          pod repo update
       - name: Install CocoaPods dependencies
         script: |
           cd ios/App
@@ -45,6 +49,6 @@ workflows:
         script: |
           cd ios/App
           xcodebuild -workspace App.xcworkspace -scheme App -configuration Release clean archive -archivePath $CM_BUILD_DIR/ios.xcarchive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
-          xcodebuild -exportArchive -archivePath $CM_BUILD_DIR/ios.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath $CM_BUILD_DIR CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+          xcodebuild -exportArchive -archivePath $CM_BUILD_DIR/ios.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath $CM_BUILD_DIR CODE SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
     artifacts:
       - $CM_BUILD_DIR/*.ipa
