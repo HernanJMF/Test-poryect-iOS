@@ -16,6 +16,10 @@ workflows:
       - name: Verify CocoaPods version
         script: |
           pod --version
+      - name: Install CocoaPods dependencies
+        script: |
+          cd ios/App
+          pod install
       - name: Create ExportOptions.plist
         script: |
           cat <<EOF > ios/App/ExportOptions.plist
