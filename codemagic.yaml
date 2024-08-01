@@ -36,7 +36,7 @@ workflows:
               <key>signingStyle</key>
               <string>automatic</string>
               <key>teamID</key>
-              <string></string>
+              <string>YOUR_TEAM_ID</string>
           </dict>
           </plist>
           EOF
@@ -49,6 +49,6 @@ workflows:
         script: |
           cd ios/App
           xcodebuild -workspace App.xcworkspace -scheme App -configuration Release clean archive -archivePath $CM_BUILD_DIR/ios.xcarchive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
-          xcodebuild -exportArchive -archivePath $CM_BUILD_DIR/ios.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath $CM_BUILD_DIR CODE SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+          xcodebuild -exportArchive -archivePath $CM_BUILD_DIR/ios.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath $CM_BUILD_DIR CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
     artifacts:
       - $CM_BUILD_DIR/*.ipa
